@@ -8,11 +8,12 @@ const WEBHOOK_URL =
 async function run() {
   const { payload, runId, ref } = github.context;
   const branch = ref.split('/').at(-1);
+  const isSuccess = true; // todo
 
   const embed = {
     timestamp: new Date().toISOString(),
-    description: '👍',
-    color: 0x7fff00,
+    description: isSuccess ? '👍' : '',
+    color: isSuccess ? 0x7fff00 : 0xff0000,
     title: `${payload.repository?.full_name}@${branch}`,
     fields: [
       {
@@ -39,7 +40,10 @@ async function run() {
   };
 
   try {
-    await axios.post(WEBHOOK_URL, { content: '@everyone', embeds: [embed] });
+    await axios.post(WEBHOOK_URL, {
+      content: isSuccess ? '@everyone' : undefined,
+      embeds: [embed],
+    });
   } catch (error) {
     core.setFailed(JSON.stringify(error));
   }
