@@ -41,7 +41,7 @@ async function run() {
 
   try {
     await axios.post(WEBHOOK_URL, {
-      content: isSuccess ? '@everyone' : undefined,
+      content: isSuccess ? undefined : '@everyone',
       embeds: [embed],
     });
   } catch (error) {
