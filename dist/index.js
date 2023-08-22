@@ -45,7 +45,6 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 const core = __importStar(__nccwpck_require__(2186));
 const github = __importStar(__nccwpck_require__(5438));
 const axios_1 = __importDefault(__nccwpck_require__(8757));
-const WEBHOOK_URL = 'https://discord.com/api/webhooks/1020292115101667368/lS7DoJGWo1AmWQcSWH7j9b1EbizVYG95Sfm6zexaoGv1P4SiDTN0ODBYqMhKvp5xQMpr';
 function run() {
     var _a, _b, _c, _d, _e;
     return __awaiter(this, void 0, void 0, function* () {
@@ -81,7 +80,7 @@ function run() {
             },
         };
         try {
-            yield axios_1.default.post(WEBHOOK_URL, {
+            yield axios_1.default.post(core.getInput('webhook'), {
                 content: isSuccess ? undefined : '@everyone',
                 embeds: [embed],
             });

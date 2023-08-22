@@ -2,9 +2,6 @@ import * as core from '@actions/core';
 import * as github from '@actions/github';
 import axios from 'axios';
 
-const WEBHOOK_URL =
-  'https://discord.com/api/webhooks/1020292115101667368/lS7DoJGWo1AmWQcSWH7j9b1EbizVYG95Sfm6zexaoGv1P4SiDTN0ODBYqMhKvp5xQMpr';
-
 async function run() {
   const { payload, runId, ref } = github.context;
   const branch = ref.split('/').at(-1);
@@ -40,7 +37,7 @@ async function run() {
   };
 
   try {
-    await axios.post(WEBHOOK_URL, {
+    await axios.post(core.getInput('webhook'), {
       content: isSuccess ? undefined : '@everyone',
       embeds: [embed],
     });
